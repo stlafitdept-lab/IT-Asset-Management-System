@@ -1,0 +1,3 @@
+export default function EmptyState({ title, description, icon, action }: { title: string; description: string; icon?: React.ReactNode; action?: React.ReactNode }) {
+  return (<div style={{ textAlign: 'center', padding: '56px 24px' }}>{icon && <div style={{ width: 50, height: 50, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px', background: 'rgba(0,112,243,0.08)', border: '1px solid rgba(0,112,243,0.1)' }}>{icon}</div>}<h3 style={{ fontSize: 15, fontWeight: 700, color: '#fff', margin: '0 0 4px' }}>{title}</h3><p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>{description}</p>{action && <div style={{ marginTop: 16 }}>{action}</div>}</div>)
+}

@@ -1,26 +1,150 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #050b18;
+  --bg-card: rgba(10, 18, 40, 0.7);
+  --bg-input: rgba(5, 11, 24, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(0, 112, 243, 0.4);
+  --border: rgba(255, 255, 255, 0.06);
+  --blue: #0070f3;
+  --cyan: #00d4ff;
+  --blue-glow: rgba(0, 112, 243, 0.15);
+  --blue-ring: rgba(0, 112, 243, 0.12);
+  --form-input-bg: rgba(10, 24, 60, 0.5);
+  --form-input-border: rgba(40, 80, 160, 0.3);
+  --form-input-border-hover: rgba(0, 112, 243, 0.5);
+  --form-input-focus-ring: rgba(0, 112, 243, 0.15);
+  --form-input-focus-glow: rgba(0, 112, 243, 0.08);
+  --form-label: rgba(160, 190, 230, 0.85);
+  --form-required: #38bdf8;
+  --form-error: #fca5a5;
+  --form-error-border: rgba(239, 68, 68, 0.4);
+  --form-error-bg: rgba(239, 68, 68, 0.06);
+  --form-section-bg: rgba(0, 112, 243, 0.04);
+  --form-section-border: rgba(0, 112, 243, 0.1);
+  --text: #ffffff;
+  --text-secondary: #a0b4d0;
+  --text-muted: #4a6080;
+  --text-dim: #1e3050;
+  --danger-light: #fca5a5;
+  --danger-bg: rgba(239, 68, 68, 0.08);
+  --danger-border: rgba(239, 68, 68, 0.15);
+  --table-header-bg: rgba(0, 112, 243, 0.03);
+  --table-border: rgba(255, 255, 255, 0.06);
+  --table-border-light: rgba(255, 255, 255, 0.04);
+  --table-footer-bg: rgba(0, 112, 243, 0.02);
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@layer base {
+  body { font-family: var(--font-sans); background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  ::selection { background: rgba(0,112,243,0.25); color: #fff; }
+  input, select, textarea { font-family: var(--font-sans); color-scheme: dark; }
+  select option { background: #0a1228; color: #fff; }
+  input[type='date']::-webkit-calendar-picker-indicator { filter: invert(0.6) sepia(1) saturate(3) hue-rotate(190deg); cursor: pointer; }
+  input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-outer-spin-button { opacity: 0.3; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+::placeholder { color: rgba(100, 140, 200, 0.4) !important; }
+
+.glass { background: var(--bg-card); backdrop-filter: blur(10px) saturate(180%); -webkit-backdrop-filter: blur(10px) saturate(180%); border: 1px solid var(--glass-border); border-radius: 14px; }
+.glass-hover { transition: all 0.2s; }
+.glass-hover:hover { border-color: var(--glass-border-hover) !important; box-shadow: 0 0 20px rgba(0,112,243,0.06), 0 8px 32px rgba(0,0,0,0.3); transform: translateY(-1px); }
+
+.btn-primary { background: linear-gradient(135deg, #0070f3, #0090ff); color: #fff; font-weight: 700; font-size: 13px; border-radius: 10px; border: 1px solid rgba(0,112,243,0.5); cursor: pointer; padding: 10px 22px; transition: all 0.2s; box-shadow: 0 0 20px rgba(0,112,243,0.2); font-family: var(--font-sans); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; text-decoration: none; }
+.btn-primary:hover:not(:disabled) { box-shadow: 0 0 30px rgba(0,112,243,0.5), 0 0 60px rgba(0,112,243,0.15); transform: translateY(-1px); border-color: rgba(0,212,255,0.5); }
+.btn-primary:active:not(:disabled) { transform: translateY(0); }
+.btn-primary:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.btn-ghost { background: rgba(255,255,255,0.03); color: var(--text-secondary); font-weight: 600; font-size: 13px; border-radius: 10px; border: 1px solid var(--glass-border); cursor: pointer; padding: 10px 22px; transition: all 0.2s; font-family: var(--font-sans); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.btn-ghost:hover:not(:disabled) { background: var(--blue-glow); border-color: var(--glass-border-hover); color: #fff; box-shadow: 0 0 12px rgba(0,112,243,0.08); }
+.btn-ghost:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.btn-danger { background: var(--danger-bg); color: var(--danger-light); font-weight: 700; font-size: 13px; border-radius: 10px; border: 1px solid var(--danger-border); cursor: pointer; padding: 10px 22px; transition: all 0.2s; font-family: var(--font-sans); display: inline-flex; align-items: center; gap: 6px; }
+.btn-danger:hover { background: rgba(239,68,68,0.15); box-shadow: 0 0 12px rgba(239,68,68,0.1); }
+
+.table-row:hover td { background: rgba(0, 112, 243, 0.06) !important; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 99px; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+.animate-fadeIn { animation: fadeIn 0.25s ease-out forwards; }
+
+@media (max-width: 640px) { .btn-primary, .btn-ghost, .btn-danger { padding: 9px 16px; font-size: 12px; } }
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+input[type="checkbox"]:hover {
+  border-color: rgba(0, 112, 243, 0.5);
+}
+
+input[type="checkbox"]:checked {
+  border-color: #0070f3;
+  background: #0070f3;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 5px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.15);
+}
+
+/* Toast animations */
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes toastSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100px) scale(0.95);
+  }
 }
